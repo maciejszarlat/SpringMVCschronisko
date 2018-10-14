@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box-body">
-                            <img class="img-responsive pad" src="<c:url value="/resources/dist/img/photo2.png" />" alt="Photo">
+                            <img class="img-responsive pad" src="<c:url value="/resources/dist/img/petsImages/${theAnimal.petImage}" />" alt="Photo">
 
                             <p>${theAnimal.petDesctiption}</p>
                             <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>

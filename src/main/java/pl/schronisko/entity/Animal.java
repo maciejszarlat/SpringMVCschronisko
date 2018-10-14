@@ -2,6 +2,8 @@ package pl.schronisko.entity;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -50,8 +52,30 @@ public class Animal {
     @JoinColumn(name = "species_id", insertable = false, updatable = false)
     private Species species;
 
+    @Column(name = "petImage")
+    private String petImage;
+
+    @Transient
+    private MultipartFile image;
+
     public Animal() {
 
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public String getPetImage() {
+        return petImage;
+    }
+
+    public void setPetImage(String petImage) {
+        this.petImage = petImage;
     }
 
     public Date getRegDate() {

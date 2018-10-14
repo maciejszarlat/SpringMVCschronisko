@@ -36,7 +36,7 @@
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form:form action="petSave" modelAttribute="animal" method="post">
+                            <form:form action="petSave" modelAttribute="animal" method="post" enctype="multipart/form-data">
 
                                 <form:hidden path="id"/>
 
@@ -74,6 +74,11 @@
                                                         placeholder="dd-mm-rrrr"/>
                                             <form:errors path="regDate" cssClass="text-red"/>
                                         </div>
+                                            <div class="form-group">
+                                                <label for="chipNo">Dodaj zdjęcie</label>
+                                                <form:input type="file" path="image" id="file"/>
+                                            </div>
+
                                         <div class="form-group">
                                             <label for="chipNo">Stan zwierzęcia w dniu przyjęcia</label>
                                             <form:textarea path="petDesctiption" class="textarea" placeholder="Place some text here"
