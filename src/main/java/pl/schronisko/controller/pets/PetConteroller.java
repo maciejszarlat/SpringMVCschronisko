@@ -1,6 +1,7 @@
 package pl.schronisko.controller.pets;
 
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,25 +78,35 @@ public class PetConteroller {
             MultipartFile uploadFile = theAnimal.getImage();
 
             String fileName = uploadFile.getOriginalFilename();
+            String ext = FilenameUtils.getExtension(fileName);
 
-            String destFilePath = "/Users/maciejszarlat/Desktop/Projekty/schronikso-kopia/src/main/webapp/resources/dist/img/petsImages/" + fileName;
+            if(ext.equals("jpg")){
+                //próba z plikiem
+                long size = uploadFile.getSize();
 
+                System.out.println("wulekosc pliku: " + size + " a rozszerzenie to:    " + ext);
 
-            File destFile = new File(destFilePath);
+                String destFilePath = "/Users/maciejszarlat/Desktop/Projekty/schronikso-kopia/src/main/webapp/resources/dist/img/petsImages/" + fileName;
 
-            System.out.println("to jest sciezka   " + destFilePath);
+                File destFile = new File(destFilePath);
 
-            try {
-                uploadFile.transferTo(destFile);
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    uploadFile.transferTo(destFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                theAnimal.setPetImage(fileName);
+
+                animalService.saveTheAnimal(theAnimal);
+
+                return "redirect:/admin/pet-list";
+            }else{
+                List<Species> theSpecies = speciesDao.getSpecies();
+                theModel.addAttribute("specie", theSpecies);
+                theModel.addAttribute("error", "Plik może mieć rozszerzenie jpg");
+                return "admin/animals/pet-add";
             }
-
-            theAnimal.setPetImage(fileName);
-
-            animalService.saveTheAnimal(theAnimal);
-
-            return "redirect:/admin/pet-list";
         }
     }
 

@@ -28,56 +28,46 @@
             <section class="content">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box-body">
-                            <img class="img-responsive pad" src="<c:url value="/resources/dist/img/petsImages/${theAnimal.petImage}" />" alt="Photo">
-
-                            <p>${theAnimal.petDesctiption}</p>
-                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                            <span class="pull-right text-muted">127 likes - 3 comments</span>
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer box-comments">
-                            <div class="box-comment">
-                                <!-- User image -->
-                                <img class="img-circle img-sm" src="<c:url value="/resources/dist/img/user3-128x128.jpg" />" alt="User Image">
-
-                                <div class="comment-text">
-                      <span class="username">
-                        Maria Gonzales
-                        <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span><!-- /.username -->
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
+                            <!-- Widget: user widget style 1 -->
+                            <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <div class="widget-user-header bg-aqua-active">
+                                    <h3 class="widget-user-username">Alexander Pierce</h3>
+                                    <h5 class="widget-user-desc">Founder &amp; CEO</h5>
                                 </div>
-                                <!-- /.comment-text -->
+                                <div class="widget-user-image">
+                                    <img class="img-circle" src="<c:url value="/resources/dist/img/petsImages/${theAnimal.petImage}"/>" alt="User Avatar"/>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 border-right">
+                                            <div class="description-block">
+                                                <h5 class="description-header">3,200</h5>
+                                                <span class="description-text">SALES</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-4 border-right">
+                                            <div class="description-block">
+                                                <h5 class="description-header">13,000</h5>
+                                                <span class="description-text">FOLLOWERS</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-4">
+                                            <div class="description-block">
+                                                <h5 class="description-header">35</h5>
+                                                <span class="description-text">PRODUCTS</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
                             </div>
-                            <!-- /.box-comment -->
-                            <div class="box-comment">
-                                <!-- User image -->
-                                <img class="img-circle img-sm" src="<c:url value="/resources/dist/img/user4-128x128.jpg" />" alt="User Image">
-
-                                <div class="comment-text">
-                      <span class="username">
-                        Luna Stark
-                        <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span><!-- /.username -->
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
-                                </div>
-                                <!-- /.comment-text -->
-                            </div>
-                            <!-- /.box-comment -->
-                        </div>
-                        <!-- /.box-footer -->
-                        <div class="box-footer">
-                            <form action="#" method="post">
-                                <img class="img-responsive img-circle img-sm" src="<c:url value="/resources/dist/img/user4-128x128.jpg" />" alt="Alt Text">
-                                <!-- .img-push is used to add margin to elements next to floating images -->
-                                <div class="img-push">
-                                    <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                                </div>
-                            </form>
+                            <!-- /.widget-user -->
                         </div>
                         <!-- /.box -->
                     </div>

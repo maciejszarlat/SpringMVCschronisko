@@ -46,8 +46,6 @@ public class UserServiceImpl implements UserService {
     public void save(CrmUser crmUser) {
 
         long mstime = System.currentTimeMillis();
-        System.out.println(mstime);
-
         User user = new User();
         // assign user details to the user object
         user.setCustomerId(mstime);

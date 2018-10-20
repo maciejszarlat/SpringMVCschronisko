@@ -35,17 +35,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @PropertySource("classpath:persistence-mysql.properties")
 public class AppConfig implements WebMvcConfigurer {
 
-    public static final String ENCODING_UTF_8 = "UTF-8";
-
-    public static final long MAX_UPLOAD_FILE_SIZE = 1;
-
-    public static final long MAX_UPLOAD_PER_FILE_SIZE = 1;
-
-//    public static final long MAX_UPLOAD_FILE_SIZE = 52428807;
-
-//    public static final long MAX_UPLOAD_PER_FILE_SIZE = 5242880;
-
-    // set up variable to hold the properties
     @Autowired
     private Environment env;
 
@@ -65,21 +54,6 @@ public class AppConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
-
-
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver getMultipartFormResolver() throws IOException {
-
-        CommonsMultipartResolver ret = new CommonsMultipartResolver();
-
-        ret.setMaxUploadSize(MAX_UPLOAD_FILE_SIZE);
-
-        ret.setMaxUploadSizePerFile(MAX_UPLOAD_PER_FILE_SIZE);
-
-        ret.setDefaultEncoding(ENCODING_UTF_8);
-
-        return ret;
-    }
 
 
     @Bean("messageSource")
@@ -189,13 +163,14 @@ public class AppConfig implements WebMvcConfigurer {
         return txManager;
     }
 
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
+    @Bean(name="multipartResolver")
+    public CommonsMultipartResolver multipartResolver(){
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
+        resolver.setMaxUploadSizePerFile(10240); //10Kb
+        resolver.setDefaultEncoding("UTF-8");
+        resolver.setResolveLazily(true);
         return resolver;
     }
-
 
 }
 

@@ -117,7 +117,7 @@
                                                 <td>${tempAnimal.petAge}</td>
                                                 <td>${tempAnimal.species.name}</td>
                                                 <td>${tempAnimal.chipNo}</td>
-                                                <td><a href="/admin/petDelete/${tempAnimal.id}">Usuń</a></td>
+                                                <td><a href="/admin/singlePet?id=${tempAnimal.id}">Pokaż</a></td>
                                             </tr>
                                         </c:forEach>
 

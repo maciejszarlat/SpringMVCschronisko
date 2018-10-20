@@ -33,6 +33,11 @@
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Dodaj zwierzaka</h3>
+                                <c:if test="${error !=null}">
+                                    <div class="callout callout-danger">
+                                        <h4>${error}</h4>
+                                    </div>
+                                </c:if>
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
