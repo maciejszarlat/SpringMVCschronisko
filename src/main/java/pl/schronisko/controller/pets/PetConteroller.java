@@ -78,13 +78,14 @@ public class PetConteroller {
             MultipartFile uploadFile = theAnimal.getImage();
 
             String fileName = uploadFile.getOriginalFilename();
-            String ext = FilenameUtils.getExtension(fileName);
+            String extension = FilenameUtils.getExtension(fileName);
 
-            if(ext.equals("jpg")){
-                //próba z plikiem
-                long size = uploadFile.getSize();
+            fileName = fileName.replace(fileName, System.currentTimeMillis() + "." + extension);
+            long size = uploadFile.getSize();
 
-                System.out.println("wulekosc pliku: " + size + " a rozszerzenie to:    " + ext);
+            System.out.println("wilekość pliku: " + size + " a rozszerzenie to:    " + extension);
+
+            if ((extension.equals("jpg") || extension.equals("jpeg")) && size < 2097152) {
 
                 String destFilePath = "/Users/maciejszarlat/Desktop/Projekty/schronikso-kopia/src/main/webapp/resources/dist/img/petsImages/" + fileName;
 
@@ -101,10 +102,10 @@ public class PetConteroller {
                 animalService.saveTheAnimal(theAnimal);
 
                 return "redirect:/admin/pet-list";
-            }else{
+            } else {
                 List<Species> theSpecies = speciesDao.getSpecies();
                 theModel.addAttribute("specie", theSpecies);
-                theModel.addAttribute("error", "Plik może mieć rozszerzenie jpg");
+                theModel.addAttribute("error", "Plik może mieć rozszerzenie jpg oraz nie może przekraczać 2MB");
                 return "admin/animals/pet-add";
             }
         }
@@ -112,7 +113,14 @@ public class PetConteroller {
 
     @GetMapping("/admin/petDelete/{id}")
     public String petDelete(@PathVariable int id, RedirectAttributes ra) {
+
+        String fileName = animalService.getOneAnimal(id).getPetImage();
         animalService.deleteAnimal(id);
+
+        String pathname = "/Users/maciejszarlat/Desktop/Projekty/schronikso-kopia/src/main/webapp/resources/dist/img/petsImages/" + fileName;;
+        File file = new File(pathname);
+        file.delete();
+
         ra.addFlashAttribute("success", "Zwierzak został usunięty");
         return "redirect:/admin/pet-list";
     }

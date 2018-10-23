@@ -9,7 +9,7 @@
                 <img src="<c:url value="/resources/dist/img/user2-160x160.jpg"/>" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>${user.firstName} ${user.lastName}</p>
+                <p>${user.userName}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>

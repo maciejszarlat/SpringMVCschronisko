@@ -35,83 +35,68 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
+<body class="hold-transition register-page">
+<div class="register-box">
+    <div class="register-logo">
         <a href="../../index2.html"><b>Admin</b>LTE</a>
     </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Zaloguj się</p>
 
-        <form action="${pageContext.request.contextPath}/authenticateTheUser"
-              method="POST">
-            <c:if test="${confirmation != null}">
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <div class="alert alert-success alert-dismissible">
-                            ${confirmation}
-                        </div>
+    <div class="register-box-body">
+        <p class="login-box-msg">Zarejestruj swoje schronisko</p>
+        <!-- Check for registration error -->
+
+        <form:form action="${pageContext.request.contextPath}/register/processRegistrationForm"
+                   modelAttribute="crmUser"
+                   class="form-horizontal">
+
+            <c:if test="${registrationError != null}">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <div class="alert alert-danger alert-dismissible">
+                            ${registrationError}
                     </div>
                 </div>
-            </c:if>
-            <c:if test="${param.logout != null}">
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <div class="alert alert-success alert-dismissible">
-                            Wylogowano z serwisu.
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-            <c:if test="${param.error != null}">
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <div class="alert alert-danger alert-dismissible">
-                            Błedy e-mail lub hasło.
-                        </div>
-                    </div>
-                </div>
+            </div>
             </c:if>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email" name="username">
+                <form:input path="userName" placeholder="E-mail (*)" class="form-control"/>
+                <form:errors path="userName" cssClass="error"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <form:errors path="password" cssClass="error" />
+                <form:password path="password" placeholder="password (*)" class="form-control" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <form:errors path="matchingPassword" cssClass="error" />
+                <form:password path="matchingPassword" placeholder="confirm password (*)" class="form-control" />
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
+
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Zaloguj</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Zarejestruj</button>
                 </div>
                 <!-- /.col -->
             </div>
+            </form:form>
 
-            <input type="hidden"
-                   name="${_csrf.parameterName}"
-                   value="${_csrf.token}"/>
-        </form>
-
-
-        <a href="#">Zapomniałem hasła</a><br>
-        <a href="${pageContext.request.contextPath}/register/showRegistrationForm" class="text-center">Rejestracja</a>
-
+            <a href="/showMyLoginPage" class="text-center">Logowanie</a>
     </div>
-    <!-- /.login-box-body -->
+    <!-- /.form-box -->
 </div>
-<!-- /.login-box -->
+<!-- /.register-box -->
 
 <!-- jQuery 3 -->
-<script src="<c:url value="/resources/bower_components/jquery/dist/jquery.min.js" />"></script>
-
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="<c:url value="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js" />"></script>
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="<c:url value="/resources/plugins/iCheck/icheck.min.js" />"></script>
+<script src="../../plugins/iCheck/icheck.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({

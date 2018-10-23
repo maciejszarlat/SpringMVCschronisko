@@ -280,7 +280,7 @@
                             <img src="<c:url value="/resources/dist/img/user2-160x160.jpg"/>" class="user-image"
                                  alt="User Image"/>
 
-                            <span class="hidden-xs">${user.firstName} ${user.lastName} ${user.customerId}
+                            <span class="hidden-xs">${user.userName}
 
                             </span>
                         </a>
@@ -290,7 +290,7 @@
                                 <img src="<c:url value="/resources/dist/img/user2-160x160.jpg"/>" class="img-circle"
                                      alt="User Image"/>
                                 <p>
-                                    ${user.firstName} ${user.lastName}
+                                    ${user.userName}
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>

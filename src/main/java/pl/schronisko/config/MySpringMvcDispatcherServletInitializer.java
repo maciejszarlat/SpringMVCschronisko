@@ -37,7 +37,7 @@ public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationC
 	private static final String LOCATION = "/Users/maciejszarlat/Desktop/Projekty/schronikso-kopia/src/main/webapp/resources/dist/img/petsImages"; // Temporary location where files will be stored
 
 	private static final long MAX_FILE_SIZE = 5242880; // 5MB : Max file size.
-	// Beyond that size spring will throw exception.
+
 	private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total request size containing Multi part.
 
 	private static final int FILE_SIZE_THRESHOLD = 0; // S

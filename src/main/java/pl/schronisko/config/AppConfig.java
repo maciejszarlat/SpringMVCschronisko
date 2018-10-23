@@ -37,10 +37,8 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Autowired
     private Environment env;
+//    private Logger logger = Logger.getLogger(getClass().getName());
 
-    // set up a logger for diagnostics
-    private Logger logger = Logger.getLogger(getClass().getName());
-    // define a bean for ViewResolver
 
     @Bean
     public ViewResolver viewResolver() {
@@ -50,10 +48,8 @@ public class AppConfig implements WebMvcConfigurer {
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
 
-
         return viewResolver;
     }
-
 
 
     @Bean("messageSource")
@@ -73,8 +69,6 @@ public class AppConfig implements WebMvcConfigurer {
                 .addResourceLocations("/resources/");
     }
 
-    // define a bean for our security datasource
-
     @Bean
     public DataSource securityDataSource() {
 
@@ -88,16 +82,10 @@ public class AppConfig implements WebMvcConfigurer {
             throw new RuntimeException(exc);
         }
 
-        // for sanity's sake, let's log url and user ... just to make sure we are reading the data
-        logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
-        logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
-
-        // set database connection props
         securityDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
         securityDataSource.setUser(env.getProperty("jdbc.user"));
         securityDataSource.setPassword(env.getProperty("jdbc.password"));
 
-        // set connection pool props
         securityDataSource.setInitialPoolSize(
                 getIntProperty("connection.pool.initialPoolSize"));
 
@@ -113,22 +101,16 @@ public class AppConfig implements WebMvcConfigurer {
         return securityDataSource;
     }
 
-    // need a helper method
-    // read environment property and convert to int
 
     private int getIntProperty(String propName) {
 
         String propVal = env.getProperty(propName);
-
-        // now convert to int
         int intPropVal = Integer.parseInt(propVal);
 
         return intPropVal;
     }
 
     private Properties getHibernateProperties() {
-
-        // set hibernate properties
         Properties props = new Properties();
 
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
@@ -141,10 +123,9 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
 
-        // create session factorys
+
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
-        // set the properties
         sessionFactory.setDataSource(securityDataSource());
         sessionFactory.setPackagesToScan(env.getProperty("hiberante.packagesToScan"));
         sessionFactory.setHibernateProperties(getHibernateProperties());
@@ -156,20 +137,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
 
-        // setup transaction manager based on session factory
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory);
 
         return txManager;
-    }
-
-    @Bean(name="multipartResolver")
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setMaxUploadSizePerFile(10240); //10Kb
-        resolver.setDefaultEncoding("UTF-8");
-        resolver.setResolveLazily(true);
-        return resolver;
     }
 
 }

@@ -79,6 +79,7 @@
                                         <th>Wiek</th>
                                         <th>Gatunek</th>
                                         <th>Numer czipu</th>
+                                        <th>Data przyjecia</th>
                                         <th>Akcja</th>
                                     </tr>
                                     </tfoot>

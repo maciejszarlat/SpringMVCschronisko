@@ -43,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 			.antMatchers("/admin").hasRole("DYREKTOR")
-//			.antMatchers("/admin/leaders/**").hasRole("WOLONTARIUSZ")
-//			.antMatchers("/admin/systems/**").hasRole("PRACOWNIK")
+//			.antMatchers("/admin/wolontariusz/**").hasRole("WOLONTARIUSZ")
+//			.antMatchers("/admin/pracownik/**").hasRole("PRACOWNIK")
 			.and()
 			.formLogin()
 				.loginPage("/showMyLoginPage")
@@ -57,20 +57,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().accessDeniedPage("/access-denied");
 		
 	}
-	
-	//beans
-	//bcrypt bean definition
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
-	//authenticationProvider bean definition
+
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-		auth.setUserDetailsService(userService); //set the custom user details service
-		auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+		auth.setUserDetailsService(userService);
+		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
 	  

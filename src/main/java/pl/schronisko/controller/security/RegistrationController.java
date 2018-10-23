@@ -23,56 +23,49 @@ import pl.schronisko.service.UserService;
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
-	
+
     @Autowired
     private UserService userService;
-	
-    private Logger logger = Logger.getLogger(getClass().getName());
-    
-	@InitBinder
-	public void initBinder(WebDataBinder dataBinder) {
-		
-		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-		
-		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-	}	
-	
-	@GetMapping("/showRegistrationForm")
-	public String showMyLoginPage(Model theModel) {
-		
-		theModel.addAttribute("crmUser", new CrmUser());
-		
-		return "registration-form";
-	}
 
-	@PostMapping("/processRegistrationForm")
-	public String processRegistrationForm(
-				@Valid @ModelAttribute("crmUser") CrmUser theCrmUser, 
-				BindingResult theBindingResult, 
-				Model theModel) {
-		
-		String userName = theCrmUser.getUserName();
-		logger.info("Processing registration form for: " + userName);
-		
-		// form validation
-		 if (theBindingResult.hasErrors()){
-			 return "registration-form";
-	        }
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
 
-		// check the database if user already exists
-        User existing = userService.findByUserName(userName);
-        if (existing != null){
-        	theModel.addAttribute("crmUser", new CrmUser());
-			theModel.addAttribute("registrationError", "User name already exists.");
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
 
-			logger.warning("User name already exists.");
-        	return "registration-form";
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
+    @GetMapping("/showRegistrationForm")
+    public String showMyLoginPage(Model theModel) {
+
+        theModel.addAttribute("crmUser", new CrmUser());
+
+        return "security/register";
+    }
+
+    @PostMapping("/processRegistrationForm")
+    public String processRegistrationForm(
+            @Valid @ModelAttribute("crmUser") CrmUser theCrmUser,
+            BindingResult theBindingResult,
+            Model theModel) {
+
+        String userName = theCrmUser.getUserName();
+
+
+        if (theBindingResult.hasErrors()) {
+            return "security/register";
         }
-     // create user account        						
+
+        User existing = userService.findByUserName(userName);
+        if (existing != null) {
+            theModel.addAttribute("crmUser", new CrmUser());
+            theModel.addAttribute("registrationError", "Taki email istanieje juz w naszej bazie");
+
+            return "security/register";
+        }
         userService.save(theCrmUser);
-        
-        logger.info("Successfully created user: " + userName);
-        
-        return "registration-confirmation";		
-	}
+
+        theModel.addAttribute("confirmation", "Rejestracja przebiegła pomyślnie, teraz możesz się zalogować");
+        return "security/login";
+    }
 }

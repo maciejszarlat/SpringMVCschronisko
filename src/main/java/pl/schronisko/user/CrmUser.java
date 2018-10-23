@@ -11,6 +11,7 @@ import pl.schronisko.validation.ValidEmail;
 })
 public class CrmUser {
 
+	@ValidEmail
 	@NotNull(message = "Pole wymagane")
 	@Size(min = 1, message = "Pole wymagane")
 	private String userName;
@@ -23,18 +24,6 @@ public class CrmUser {
 	@Size(min = 1, message = "Pole wymagane")
 	private String matchingPassword;
 
-	@NotNull(message = "Pole wymagane")
-	@Size(min = 1, message = "Pole wymagane")
-	private String firstName;
-
-	@NotNull(message = "Pole wymagane")
-	@Size(min = 1, message = "Pole wymagane")
-	private String lastName;
-
-	@ValidEmail
-	@NotNull(message = "Pole wymagane")
-	@Size(min = 1, message = "Pole wymagane")
-	private String email;
 
 	public CrmUser() {
 
@@ -64,28 +53,6 @@ public class CrmUser {
 		this.matchingPassword = matchingPassword;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 }

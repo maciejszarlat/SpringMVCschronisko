@@ -47,18 +47,11 @@ public class UserServiceImpl implements UserService {
 
         long mstime = System.currentTimeMillis();
         User user = new User();
-        // assign user details to the user object
         user.setCustomerId(mstime);
         user.setUserName(crmUser.getUserName());
         user.setPassword(passwordEncoder.encode(crmUser.getPassword()));
-        user.setFirstName(crmUser.getFirstName());
-        user.setLastName(crmUser.getLastName());
-        user.setEmail(crmUser.getEmail());
 
-        // give user default role of "employee"
         user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_DYREKTOR")));
-
-        // save user in the database
         userDao.save(user);
     }
 
