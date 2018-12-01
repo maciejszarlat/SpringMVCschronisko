@@ -16,10 +16,15 @@ import pl.schronisko.entity.Species;
 import pl.schronisko.helpers.CustomerId;
 import pl.schronisko.service.AnimalService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -36,6 +41,9 @@ public class PetConteroller {
 
     @Autowired
     private SpeciesDao speciesDao;
+
+    @Autowired
+    ServletContext servletContext;
 
     @GetMapping("/admin/pet-list")
     public String petList(Model theModel, HttpServletRequest request) {
@@ -86,21 +94,25 @@ public class PetConteroller {
             System.out.println("wilekość pliku: " + size + " a rozszerzenie to:    " + extension);
 
             if ((extension.equals("jpg") || extension.equals("jpeg")) && size < 2097152) {
-
-                String destFilePath = "/Users/maciejszarlat/Desktop/Projekty/schronikso-kopia/src/main/webapp/resources/dist/img/petsImages/" + fileName;
-
-                File destFile = new File(destFilePath);
-
                 try {
-                    uploadFile.transferTo(destFile);
-                } catch (IOException e) {
+                    final String destFolder = servletContext.getResource("/resources/dist/img/petsImages/").getPath();
+
+                    String destFilePath = destFolder + fileName;
+                    System.out.println("sciezka do pliku:   " + destFilePath);
+                    File destFile = new File(destFilePath);
+
+                    try {
+                        uploadFile.transferTo(destFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    theAnimal.setPetImage(fileName);
+
+                    animalService.saveTheAnimal(theAnimal);
+                } catch (MalformedURLException e){
                     e.printStackTrace();
                 }
-
-                theAnimal.setPetImage(fileName);
-
-                animalService.saveTheAnimal(theAnimal);
-
                 return "redirect:/admin/pet-list";
             } else {
                 List<Species> theSpecies = speciesDao.getSpecies();
