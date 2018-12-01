@@ -27,7 +27,7 @@
 
             <section class="content">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-6 col-xs-offset-3">
                             <!-- Widget: user widget style 1 -->
                             <div class="box box-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
